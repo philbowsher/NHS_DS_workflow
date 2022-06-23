@@ -1,64 +1,52 @@
 ---
-title: "NHS_Workflow"
-output: html_notebook
+title: "Phils NHS Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
 
-
-
-```{r setup}
+```{r setup, include=FALSE}
+library(flexdashboard)
 library(NHSRdatasets)
 library(readr)
 library(dplyr)
 library(plotly)
-```
 
-
-```{r}
-#Pretend
 phil_ae_attendances <- ae_attendances
 
 write_csv(phil_ae_attendances, "phil_ae_attendances.csv")
 
-```
 
-
-Import Data
-```{r}
 phil_ae_attendances <- read_csv("phil_ae_attendances.csv")
 phil_ae_attendances
-
-```
-
-
-```{r}
-
 
 phil_uae_attendances <- phil_ae_attendances %>%
  filter(period >= "2016-12-29" & period <= "2019-03-01") %>%
  filter(!(type %in% 
  "other"))
-
 ```
 
+Column {data-width=650}
+-----------------------------------------------------------------------
 
-
-
+### Chart A
 
 ```{r}
-
 dv1 <- ggplot(phil_uae_attendances) +
   aes(x = attendances) +
   geom_histogram(bins = 30L, fill = "#112446") +
   theme_minimal()
 
 ggplotly(dv1)
-
-#Heavy lean - transform?
-
 ```
 
-```{r}
+Column {data-width=350}
+-----------------------------------------------------------------------
 
+### Chart B
+
+```{r}
 dv2 <- ggplot(phil_uae_attendances) +
   aes(x = breaches, y = attendances, colour = type) +
   geom_point(shape = "circle", size = 1.5) +
@@ -66,11 +54,11 @@ dv2 <- ggplot(phil_uae_attendances) +
   theme_minimal()
 
 ggplotly(dv2)
-
 ```
+
+### Chart C
+
 ```{r}
-
-
 dv3 <- ggplot(phil_uae_attendances) +
  aes(x = admissions, fill = type) +
  geom_histogram(bins = 30L) +
@@ -78,8 +66,5 @@ dv3 <- ggplot(phil_uae_attendances) +
  theme_minimal()
 
 ggplotly(dv3)
-
-
-
 ```
 
