@@ -1,0 +1,79 @@
+---
+title: "NHS_Workflow"
+output: html_notebook
+---
+
+
+
+```{r setup}
+library(NHSRdatasets)
+library(readr)
+library(dplyr)
+```
+
+
+```{r}
+#Pretend
+phil_ae_attendances <- ae_attendances
+
+write_csv(phil_ae_attendances, "phil_ae_attendances.csv")
+
+```
+
+
+Import Data
+```{r}
+library(readr)
+phil_ae_attendances <- read_csv("phil_ae_attendances.csv")
+phil_ae_attendances
+
+```
+
+
+```{r}
+
+
+phil_uae_attendances <- phil_ae_attendances %>%
+ filter(period >= "2016-12-29" & period <= "2019-03-01") %>%
+ filter(!(type %in% 
+ "other"))
+
+```
+
+
+
+
+
+```{r}
+
+ggplot(phil_uae_attendances) +
+  aes(x = attendances) +
+  geom_histogram(bins = 30L, fill = "#112446") +
+  theme_minimal()
+
+#Heavy lean - transform?
+
+```
+
+```{r}
+
+ggplot(phil_uae_attendances) +
+  aes(x = breaches, y = attendances, colour = type) +
+  geom_point(shape = "circle", size = 1.5) +
+  scale_color_hue(direction = 1) +
+  theme_minimal()
+
+```
+```{r}
+
+
+ggplot(phil_uae_attendances) +
+ aes(x = admissions, fill = type) +
+ geom_histogram(bins = 30L) +
+ scale_fill_hue(direction = 1) +
+ theme_minimal()
+
+
+
+```
+
