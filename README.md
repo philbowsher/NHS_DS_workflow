@@ -9,3 +9,10 @@ Next Step:
 
 https://github.com/philbowsher/Univarsal-Data-Visualization-Shiny-App/blob/master/UnivarsalApp.Rmd
 Load NHS data into shiny app
+
+Scaling Data:
+
+https://db.rstudio.com/
+https://spark.rstudio.com/
+https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
+https://dtplyr.tidyverse.org/
