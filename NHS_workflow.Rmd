@@ -9,6 +9,7 @@ output: html_notebook
 library(NHSRdatasets)
 library(readr)
 library(dplyr)
+library(plotly)
 ```
 
 
@@ -46,10 +47,12 @@ phil_uae_attendances <- phil_ae_attendances %>%
 
 ```{r}
 
-ggplot(phil_uae_attendances) +
+dv1 <- ggplot(phil_uae_attendances) +
   aes(x = attendances) +
   geom_histogram(bins = 30L, fill = "#112446") +
   theme_minimal()
+
+ggplotly(dv1)
 
 #Heavy lean - transform?
 
@@ -57,21 +60,25 @@ ggplot(phil_uae_attendances) +
 
 ```{r}
 
-ggplot(phil_uae_attendances) +
+dv2 <- ggplot(phil_uae_attendances) +
   aes(x = breaches, y = attendances, colour = type) +
   geom_point(shape = "circle", size = 1.5) +
   scale_color_hue(direction = 1) +
   theme_minimal()
 
+ggplotly(dv2)
+
 ```
 ```{r}
 
 
-ggplot(phil_uae_attendances) +
+dv3 <- ggplot(phil_uae_attendances) +
  aes(x = admissions, fill = type) +
  geom_histogram(bins = 30L) +
  scale_fill_hue(direction = 1) +
  theme_minimal()
+
+ggplotly(dv3)
 
 
 
